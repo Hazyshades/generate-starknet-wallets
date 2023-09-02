@@ -89,5 +89,5 @@ npm run deploy
 
 ### Support / Qs
 
-`Telegram:` https://t.me/retrodropTools | https://t.me/fraggdiller
+`Telegram:` https://t.me/retrodroptoolsForum 
  
