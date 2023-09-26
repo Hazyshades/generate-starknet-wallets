@@ -1,7 +1,7 @@
 import { HDKey } from '@scure/bip32';
 import { mnemonicToSeedSync } from '@scure/bip39';
 import { HDNodeWallet, Wallet } from 'ethers';
-import { Account, CallData, constants, Contract, ec, hash, num, Provider, stark, RpcProvider } from 'starknet';
+import { Account, CallData, constants, Contract, ec, hash, num, Provider, stark, RpcProvider, getChecksumAddress } from 'starknet';
 import { abi } from './abi.js';
 import {
     argentXaccountClassHash, argentXaccountClassHashNew,
@@ -65,12 +65,12 @@ export const getArgentAddressNew = async (privateKey) => {
     const publicKey = ec.starkCurve.getStarkKey(privateKey);
     const constructorCalldata = await build_ConstructorCallDataNew(publicKey);
 
-    return hash.calculateContractAddressFromHash(
+    return getChecksumAddress(hash.calculateContractAddressFromHash(
         publicKey,
         argentXaccountClassHashNew,
         constructorCalldata,
         0
-    );
+    ));
 };
 
 
@@ -78,12 +78,12 @@ export const getArgentAddress = async (privateKey) => {
     const publicKey = ec.starkCurve.getStarkKey(privateKey);
     const ConstructorCallData = await build_ConstructorCallData(publicKey);
 
-    return hash.calculateContractAddressFromHash(
+    return getChecksumAddress(hash.calculateContractAddressFromHash(
         publicKey,
         argentXproxyClassHash,
         ConstructorCallData,
         0
-    );
+    ));
 }
 
 
@@ -113,12 +113,12 @@ export const getBraavosAddress = async (privateKey) => {
     const initializer = calculateInitializer(publicKey);
     const proxyConstructorCallData = buildProxyConstructorCallData(initializer);
 
-    return hash.calculateContractAddressFromHash(
+    return getChecksumAddress(hash.calculateContractAddressFromHash(
         publicKey,
         braavosProxyClassHash,
         proxyConstructorCallData,
         0
-    );
+    ));
 };
 
 

@@ -25,7 +25,7 @@ export const FromOkxToWallet = async (address, amount) => {
             exchange.https_proxy = OKXAuth.okx_proxy
 
             const info = await exchange.fetchCurrencies('ETH');
-            let minWd = info.ETH.networks.StarkNet.info.minWd;
+            let minWd = info.ETH.networks.Starknet.info.minWd;
             minWd = parseFloat(minWd) * 2;
 
             if (amount < minWd) {
@@ -35,7 +35,7 @@ export const FromOkxToWallet = async (address, amount) => {
             let withdrawFee;
             try {
                 const fees = await exchange.fetchDepositWithdrawFees(['ETH']);
-                const feeInfo = fees.ETH.networks.StarkNet;
+                const feeInfo = fees.ETH.networks.Starknet;
                 if (feeInfo) {
                     withdrawFee = feeInfo.withdraw.fee;
 
@@ -47,8 +47,8 @@ export const FromOkxToWallet = async (address, amount) => {
                 withdrawFee = Math.random() * (0.0002 - 0.0001) + 0.0002;
             }
 
-            console.log(`Start withdrawal ${amount} ETH to StarkNet on ${address}`)
-            const chainName = 'ETH' + 'StarkNet';
+            console.log(`Start withdrawal ${amount} ETH to Starknet on ${address}`)
+            const chainName = 'ETH' + 'Starknet';
             let balanceCache = await checkBalance(address)
             await exchange.withdraw('ETH', amount, address, {
                 toAddress: address,
@@ -57,7 +57,7 @@ export const FromOkxToWallet = async (address, amount) => {
                 fee: withdrawFee,
                 pwd: '-',
                 amt: amount,
-                network: 'StarkNet'
+                network: 'Starknet'
             });
 
             console.log(`Start waiting for deposit 120 seconds....`)
